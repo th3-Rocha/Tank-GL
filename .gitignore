@@ -1,0 +1,11 @@
+/target
+node_modules/
+/ui/dist
+*.pcap
+*.pcapng
+/captures/*
+!/captures/README.md
+# binários do software oficial não vão pro repo
+*.exe
+*.dll
+*.am2data

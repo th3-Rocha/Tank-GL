@@ -1,0 +1,19 @@
+<!-- @dsCard group="Controles" height=140 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Fader — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  function App() {
+    var a = useState(0), b = useState(-6);
+    return h("div", { className: "tk-demo tk-demo--top tk-demo--panel", style: { gap: "var(--space-8)" } },
+      h(T.Fader, { label: "IR LV", value: a[0], onChange: a[1], min: -12, max: 12, step: 0.5, unit: "dB", width: 240, defaultValue: 0, format: function (x) { return (x > 0 ? "+" : "") + x.toFixed(1); } }),
+      h(T.Fader, { label: "Pré-escuta", value: b[0], onChange: b[1], min: -40, max: 0, unit: "dB", width: 200 }),
+      h(T.Fader, { label: "Loopback", defaultValue: 40, width: 160, disabled: true }));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

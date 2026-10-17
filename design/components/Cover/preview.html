@@ -1,0 +1,93 @@
+<!-- @dsCard height=320 -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tank Studio</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:linear-gradient(180deg, var(--ground-top), var(--ground-bottom)); color:var(--ink); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:320px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:320px; overflow:hidden; }
+  .art svg { display:block; }
+  .amber { fill:var(--amber); }
+  .ctrl { fill:var(--control); }
+  .disp { fill:var(--display-bg); }
+  .seg { fill:var(--display-on); filter:drop-shadow(0 0 4px var(--display-on)); }
+  .chart { fill:var(--chartreuse); }
+  .cut { fill:none; stroke:var(--on-amber); stroke-width:12; stroke-linecap:round; opacity:.35; }
+  .cutv { fill:none; stroke:var(--on-amber); stroke-width:12; stroke-linecap:round; }
+  .trk { fill:none; stroke:var(--surface); stroke-width:6; stroke-linecap:round; }
+  .val { fill:none; stroke:var(--amber); stroke-width:6; stroke-linecap:round; filter:drop-shadow(0 0 4px var(--amber-glow)); }
+  .bead { fill:var(--ink); }
+  .words { position:absolute; left:var(--space-6); bottom:var(--space-6); max-width:440px; }
+  .name { margin:0; font-family:var(--font-condensed); font-size:112px; line-height:.92; font-weight:700; letter-spacing:-.01em; color:var(--ink); }
+  .tag { margin:var(--space-2) 0 0 4px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 320" width="480" height="320">
+<!--
+  blocks      amber 160x304 slab bled off the top (the Tank-G arc colour, largest) · control #353535 304x240 bleeding off the right (the official button/track grey) · display-bg 144x60 with three display-on segment pills · chartreuse 64x24 once (only ever the Color button) — about a third of 960x320
+  arrangement one tall amber slab with satellites, bottoms on one line space-4 above the edge, space-4 gutters
+  pattern     knob arcs, from "o knob é o gesto principal" in the README: twelve 270° arcs at a space-16 pitch on the grey block, values lit in amber; one large arc cut into the slab in on-amber
+  scales      sides in space-4 multiples; gutters space-4; pitch space-16; corners radius-md (blocks), radius-sm (display), radius-xs (colour chip), pills radius-pill
+-->
+<rect class="amber blk" x="16" y="-16" width="160" height="320" rx="10"/>
+<path class="cut" d="M59.2 220.8 A52 52 0 1 1 132.8 220.8"/>
+<path class="cutv" d="M59.2 220.8 A52 52 0 1 1 140.8 157.5"/>
+<rect class="ctrl blk" x="192" y="80" width="304" height="224" rx="10"/>
+<rect class="disp" x="192" y="0" width="144" height="64" rx="6"/>
+<rect class="seg" x="212" y="17" width="28" height="6" rx="3"/>
+<rect class="seg" x="212" y="29" width="28" height="6" rx="3"/>
+<rect class="seg" x="212" y="41" width="28" height="6" rx="3"/>
+<rect class="seg" x="252" y="17" width="28" height="6" rx="3"/>
+<rect class="seg" x="252" y="41" width="28" height="6" rx="3"/>
+<rect class="chart" x="352" y="24" width="64" height="24" rx="3"/>
+<path class="trk" d="M225.9 134.1 A20 20 0 1 1 254.1 134.1"/>
+<path class="val" d="M225.9 134.1 A20 20 0 1 1 256.2 108.2"/>
+<circle class="bead" cx="256.2" cy="108.2" r="4"/>
+<path class="trk" d="M289.9 134.1 A20 20 0 1 1 318.1 134.1"/>
+<path class="val" d="M289.9 134.1 A20 20 0 0 1 291.0 104.8"/>
+<circle class="bead" cx="291.0" cy="104.8" r="4"/>
+<path class="trk" d="M353.9 134.1 A20 20 0 1 1 382.1 134.1"/>
+<path class="val" d="M353.9 134.1 A20 20 0 1 1 387.0 126.2"/>
+<circle class="bead" cx="387.0" cy="126.2" r="4"/>
+<path class="trk" d="M417.9 134.1 A20 20 0 1 1 446.1 134.1"/>
+<path class="val" d="M417.9 134.1 A20 20 0 0 1 432.0 100.0"/>
+<circle class="bead" cx="432.0" cy="100.0" r="4"/>
+<path class="trk" d="M225.9 198.1 A20 20 0 1 1 254.1 198.1"/>
+<path class="val" d="M225.9 198.1 A20 20 0 0 1 220.2 180.9"/>
+<circle class="bead" cx="220.2" cy="180.9" r="4"/>
+<path class="trk" d="M289.9 198.1 A20 20 0 1 1 318.1 198.1"/>
+<path class="val" d="M289.9 198.1 A20 20 0 1 1 323.8 180.9"/>
+<circle class="bead" cx="323.8" cy="180.9" r="4"/>
+<path class="trk" d="M353.9 198.1 A20 20 0 1 1 382.1 198.1"/>
+<path class="val" d="M353.9 198.1 A20 20 0 0 1 377.1 166.2"/>
+<circle class="bead" cx="377.1" cy="166.2" r="4"/>
+<path class="trk" d="M417.9 198.1 A20 20 0 1 1 446.1 198.1"/>
+<path class="val" d="M417.9 198.1 A20 20 0 1 1 446.1 198.1"/>
+<circle class="bead" cx="446.1" cy="198.1" r="4"/>
+<path class="trk" d="M225.9 262.1 A20 20 0 1 1 254.1 262.1"/>
+<path class="val" d="M225.9 262.1 A20 20 0 0 1 235.3 228.6"/>
+<circle class="bead" cx="235.3" cy="228.6" r="4"/>
+<path class="trk" d="M289.9 262.1 A20 20 0 1 1 318.1 262.1"/>
+<path class="val" d="M289.9 262.1 A20 20 0 1 1 322.5 240.3"/>
+<circle class="bead" cx="322.5" cy="240.3" r="4"/>
+<path class="trk" d="M353.9 262.1 A20 20 0 1 1 382.1 262.1"/>
+<path class="val" d="M353.9 262.1 A20 20 0 0 1 351.8 236.2"/>
+<circle class="bead" cx="351.8" cy="236.2" r="4"/>
+<path class="trk" d="M417.9 262.1 A20 20 0 1 1 446.1 262.1"/>
+<path class="val" d="M417.9 262.1 A20 20 0 0 1 441.1 230.2"/>
+<circle class="bead" cx="441.1" cy="230.2" r="4"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Tank Studio</h1>
+<p class="tag">O editor de palco para a Tank-G, no Linux.</p>
+</div>
+</div>
+</body>
+</html>

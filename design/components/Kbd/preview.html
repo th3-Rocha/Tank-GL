@@ -1,0 +1,13 @@
+<!-- @dsCard group="Fundamentos" height=64 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Kbd — preview</title></head>
+<body>
+<div id="root" class="tk-demo"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  ReactDOM.createRoot(document.getElementById("root")).render(h(React.Fragment, null,
+    h(T.Kbd, null, "Ctrl K"), h(T.Kbd, null, "Ctrl S"), h(T.Kbd, null, "Ctrl Z"), h(T.Kbd, null, "Shift"), h(T.Kbd, null, "↑ ↓"), h(T.Kbd, null, "Esc")));
+</script>
+</body>
+</html>

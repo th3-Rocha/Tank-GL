@@ -1,0 +1,27 @@
+<!-- @dsCard group="Hardware" height=120 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>LedDisplay — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  function App() {
+    var i = useState(7);
+    var ids = []; for (var b = 1; b <= 9; b++) "ABCD".split("").forEach(function (l) { ids.push(b + l); });
+    var cur = ids[i[0]];
+    return h("div", { className: "tk-demo", style: { gap: "var(--space-6)" } },
+      h(T.LedDisplay, { value: cur, digits: 2, height: 52, caption: "Preset" }),
+      h("div", { className: "tk-stack" },
+        h("div", { style: { display: "flex", gap: "var(--space-2)" } },
+          h(T.Button, { size: "sm", icon: "chevron-down", "aria-label": "Preset anterior", style: { transform: "rotate(90deg)" }, onClick: function () { i[1]((i[0] + 35) % 36); } }),
+          h(T.Button, { size: "sm", icon: "chevron-right", "aria-label": "Próximo preset", onClick: function () { i[1]((i[0] + 1) % 36); } })),
+        h("span", { className: "tk-demo__cap" }, "1A … 9D")),
+      h(T.LedDisplay, { value: "88", height: 36, label: "Teste de segmentos" }),
+      h(T.LedDisplay, { value: "--", height: 36, label: "Sem pedal" }),
+      h(T.LedDisplay, { value: "SAVE", height: 28, color: "var(--led-green)", label: "Gravado" }));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

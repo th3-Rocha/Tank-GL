@@ -1,0 +1,28 @@
+<!-- @dsCard group="Ações" height=170 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Button — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  ReactDOM.createRoot(document.getElementById("root")).render(h("div", { className: "tk-demo tk-demo--col" },
+    h("div", { className: "tk-demo", style: { padding: 0 } },
+      h(T.Button, { variant: "primary", icon: "send", kbd: "Ctrl S" }, "Gravar no pedal"),
+      h(T.Button, { icon: "folder" }, "Open IR File"),
+      h(T.Button, null, "Save IR data to device"),
+      h(T.Button, { variant: "color" }, "Color"),
+      h(T.Button, { variant: "ghost", icon: "undo" }, "Reverter"),
+      h(T.Button, { variant: "danger", icon: "history" }, "Restaurar de fábrica"),
+      ),
+    h("div", { className: "tk-demo", style: { padding: 0 } },
+      h(T.Button, { size: "sm", icon: "swap" }, "Swap"),
+      h(T.Button, { size: "sm", variant: "ghost", icon: "headphones", "aria-label": "Pré-escutar" }),
+      h(T.Button, { size: "sm", variant: "ghost", icon: "send", "aria-label": "Gravar no pedal" }),
+      h(T.Button, { icon: "search", "aria-label": "Buscar" }),
+      h(T.Button, { size: "lg", variant: "primary", icon: "play" }, "Ativar no pedal"),
+      h(T.Button, { size: "lg", icon: "setlist" }, "Próximo preset"),
+      h(T.Button, { variant: "primary", disabled: true }, "Nada a gravar"))));
+</script>
+</body>
+</html>

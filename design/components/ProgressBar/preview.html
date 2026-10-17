@@ -1,0 +1,21 @@
+<!-- @dsCard group="Status" height=150 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>ProgressBar — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  function App() {
+    var p = useState(0.18);
+    React.useEffect(function () { var t = setInterval(function () { p[1](function (x) { return x >= 1 ? 0 : Math.min(1, x + 0.04); }); }, 160); return function () { clearInterval(t); }; }, []);
+    var kb = Math.round(p[0] * 48);
+    return h("div", { className: "tk-demo tk-demo--top tk-demo--panel", style: { gap: "var(--space-8)" } },
+      h(T.ProgressBar, { label: "Gravando IR no slot 3", value: p[0], detail: kb + " / 48 KB · mesa_v30_57_capedge.wav", tone: p[0] >= 1 ? "ok" : "amber" }),
+      h(T.ProgressBar, { label: "Lendo presets do pedal…", detail: "36 presets via USB" }),
+      h(T.ProgressBar, { label: "Backup completo", value: 1, tone: "ok", detail: "tankg-backup-2026-10-17.zip" }));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

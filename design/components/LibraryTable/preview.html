@@ -1,0 +1,62 @@
+<!-- @dsCard group="Biblioteca" height=520 width=900 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>LibraryTable — preview</title></head>
+<body>
+<div id="root" class="tk-demo tk-demo--col"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+
+var IRS = [
+  { id: "ir1", name: "Mesa 4x12 V30 · SM57 cap edge", file: "mesa_v30_57_capedge.wav", tags: ["4x12", "V30", "SM57"], format: "48k · 1024", slot: 3, favorite: true },
+  { id: "ir2", name: "Greenback 2x12 · R121", file: "gb212_r121.wav", tags: ["2x12", "Greenback", "Ribbon"], format: "48k · 1024", slot: 1 },
+  { id: "ir3", name: "Blue 1x12 Open Back · 414", file: "blue112_414.wav", tags: ["1x12", "Alnico", "Condenser"], format: "44.1k · 2048", slot: null },
+  { id: "ir4", name: "Mesa 4x12 V30 · MD421 off-axis", file: "mesa_v30_421_off.wav", tags: ["4x12", "V30", "MD421"], format: "48k · 1024", slot: null, favorite: true },
+  { id: "ir5", name: "Twin 2x12 · SM57 + R121", file: "twin212_mix.wav", tags: ["2x12", "Clean", "Mix"], format: "48k · 1024", slot: 5 },
+  { id: "ir6", name: "Bass 8x10 · RE20", file: "bass810_re20.wav", tags: ["8x10", "Bass", "RE20"], format: "48k · 512", slot: null },
+  { id: "ir7", name: "Jensen P12Q 1x12 · SM57", file: "p12q_57.wav", tags: ["1x12", "Jensen", "SM57"], format: "48k · 1024", slot: 2 },
+  { id: "ir8", name: "Orange 2x12 V30 · e906", file: "or212_e906.wav", tags: ["2x12", "V30", "e906"], format: "48k · 1024", slot: null },
+  { id: "ir9", name: "Diezel 4x12 V30 · SM57 + 421", file: "dz412_mix.wav", tags: ["4x12", "V30", "Mix"], format: "48k · 1024", slot: 4, favorite: true },
+  { id: "ir10", name: "Acoustic Body · Dreadnought", file: "acoustic_dread.wav", tags: ["Acústico"], format: "48k · 2048", slot: null },
+  { id: "ir11", name: "Fane 4x12 · SM7B", file: "fane412_sm7b.wav", tags: ["4x12", "Fane", "SM7B"], format: "44.1k · 1024", slot: null },
+  { id: "ir12", name: "Alnico Blue 2x12 · 4038", file: "blue212_4038.wav", tags: ["2x12", "Alnico", "Ribbon"], format: "48k · 1024", slot: 6 }
+];
+var PRESET_NAMES = [
+  ["Clean Jazz", "cyan"], ["Clean Chorus", "blue"], ["Funk Clean", "green"], ["Edge of Breakup", "yellow"],
+  ["Blues Lead", "orange"], ["Plexi Rhythm", "orange"], ["Classic Rock", "red"], ["Crunch Britânico", "orange"],
+  ["Hi-Gain Rhythm", "red"], ["Hi-Gain Lead", "red"], ["Djent Tight", "purple"], ["Doom Fuzz", "purple"],
+  ["Ambient Pad", "blue"], ["Shoegaze Wall", "purple"], ["Slapback 50s", "yellow"], ["Surf Spring", "cyan"],
+  ["Acústico Palco", "white"], ["Baixo DI", "green"], ["Worship Swell", "blue"], ["Lead Delay", "orange"],
+  ["Grunge 90s", "red"], ["Stoner", "purple"], ["Country Twang", "yellow"], ["Ensaio Limpo", "white"],
+  ["Show · Abertura", "green"], ["Show · Verso", "cyan"], ["Show · Refrão", "orange"], ["Show · Solo", "red"],
+  ["Metal Moderno", "red"], ["Vintage Fuzz", "orange"], ["Octave Lead", "purple"], ["Tremolo Clean", "cyan"],
+  ["Rhythm Dry", "white"], ["Teste IR", "yellow"], ["Vazio", null], ["Vazio", null]
+];
+var PRESETS = PRESET_NAMES.map(function (p, i) {
+  var id = (Math.floor(i / 4) + 1) + "ABCD".charAt(i % 4);
+  var o = { id: id, name: p[0], color: p[1], ir: IRS[i % IRS.length].name };
+  if (id === "2D" || id === "7B") o.modified = true;
+  return o;
+});
+  function App() {
+    var q = useState(""), tags = useState([]), sel = useState(["ir1"]), play = useState(null), items = useState(IRS);
+    var allTags = {}; IRS.forEach(function (r) { r.tags.forEach(function (t) { allTags[t] = (allTags[t] || 0) + 1; }); });
+    var top = Object.keys(allTags).sort(function (a, b) { return allTags[b] - allTags[a]; }).slice(0, 7);
+    return h(React.Fragment, null,
+      h("div", { style: { display: "flex", flexWrap: "wrap", gap: "var(--space-2)", alignItems: "center" } },
+        h(T.SearchField, { value: q[0], onChange: q[1], placeholder: "Buscar IRs por nome, tag ou arquivo", width: 300, hotkey: true }),
+        top.map(function (t) {
+          var on = tags[0].indexOf(t) >= 0;
+          return h(T.Tag, { key: t, selected: on, count: allTags[t], onClick: function () { tags[1](on ? tags[0].filter(function (x) { return x !== t; }) : tags[0].concat([t])); } }, t);
+        })),
+      h(T.LibraryTable, {
+        items: items[0], query: q[0], tags: tags[0], selected: sel[0], onSelectionChange: sel[1], playingId: play[0], maxHeight: 340,
+        onPreview: function (id) { play[1](play[0] === id ? null : id); },
+        onToggleFavorite: function (id) { items[1](items[0].map(function (r) { return r.id === id ? Object.assign({}, r, { favorite: !r.favorite }) : r; })); },
+        footerActions: h(T.Button, { size: "sm", variant: "primary", icon: "send", disabled: !sel[0].length }, "Gravar " + sel[0].length + " no pedal")
+      }));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

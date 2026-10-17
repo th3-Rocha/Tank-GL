@@ -1,0 +1,17 @@
+<!-- @dsCard group="Controles" height=124 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Select — preview</title></head>
+<body>
+<div id="root" class="tk-demo tk-demo--top tk-demo--panel"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  var slots = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) { return { value: n, label: "Slot " + n }; });
+  ReactDOM.createRoot(document.getElementById("root")).render(h(React.Fragment, null,
+    h(T.Select, { label: "Slot de IR", options: slots, defaultValue: 3, width: 140 }),
+    h(T.Select, { label: "Preset", options: ["1A · Clean Jazz", "2D · Crunch Britânico", "7B · Show · Refrão"], defaultValue: "2D · Crunch Britânico", width: 220 }),
+    h(T.Select, { label: "Densa", size: "sm", options: ["48 kHz", "44.1 kHz"], width: 110 }),
+    h(T.Select, { label: "Desabilitado", options: ["Sem pedal"], disabled: true, width: 140 })));
+</script>
+</body>
+</html>

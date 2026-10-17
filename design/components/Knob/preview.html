@@ -1,0 +1,23 @@
+<!-- @dsCard group="Controles" height=250 subtitle="Arraste, role, setas; Shift = fino; duplo clique = padrão" -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Knob — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  var AMPS = ["Clean US", "Clean UK", "Chime", "Plexi", "Crunch", "Brit Hi", "US Hi", "Modern", "Bass"];
+  function App() {
+    var g = useState(70), v = useState(80), t = useState(5), gate = useState(12), tr = useState(64);
+    return h("div", { className: "tk-demo tk-demo--top tk-demo--panel", style: { gap: "var(--space-6)", paddingTop: "var(--space-8)" } },
+      h(T.Knob, { label: "GAIN", size: "lg", value: g[0], onChange: g[1], defaultValue: 50 }),
+      h(T.Knob, { label: "VOLUME", size: "lg", value: v[0], onChange: v[1], defaultValue: 80 }),
+      h(T.Knob, { label: "TREBLE", value: tr[0], onChange: tr[1], defaultValue: 64 }),
+      h(T.Knob, { label: "AMP TYPE", value: t[0], onChange: t[1], min: 1, max: 9, valueLabels: AMPS, defaultValue: 1 }),
+      h(T.Knob, { label: "NOISE GATE", size: "sm", value: gate[0], onChange: gate[1], unit: "%" }),
+      h(T.Knob, { label: "IR LV", size: "sm", defaultValue: 0, disabled: true }));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

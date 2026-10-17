@@ -1,0 +1,27 @@
+<!-- @dsCard group="Status" height=110 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Tag — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  function App() {
+    var f = useState(["4x12", "V30"]);
+    var all = ["4x12", "2x12", "1x12", "V30", "Greenback", "SM57", "Ribbon"];
+    return h("div", { className: "tk-demo tk-demo--col" },
+      h("div", { className: "tk-demo", style: { padding: 0, gap: "var(--space-2)" } },
+        h(T.Tag, null, "48k · 1024"), h(T.Tag, { tone: "amber", icon: "send" }, "Slot 3"),
+        h(T.Tag, { tone: "ok", icon: "check" }, "Salvo no pedal"), h(T.Tag, { tone: "warn", icon: "alert" }, "Modificado"),
+        h(T.Tag, { tone: "danger", icon: "close" }, "Formato inválido"), h(T.Tag, { size: "sm" }, "SM57")),
+      h("div", { className: "tk-demo", style: { padding: 0, gap: "6px" } },
+        h(T.Icon, { name: "filter", size: 16 }),
+        all.map(function (t) {
+          var on = f[0].indexOf(t) >= 0;
+          return h(T.Tag, { key: t, selected: on, onClick: function () { f[1](on ? f[0].filter(function (x) { return x !== t; }) : f[0].concat([t])); } }, t);
+        })));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- @dsCard group="Ações" height=110 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>SegmentedControl — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  function App() {
+    var t = useState("usb"), v = useState("editor");
+    return h("div", { className: "tk-demo tk-demo--col" },
+      h("div", { className: "tk-demo", style: { padding: 0 } },
+        h(T.SegmentedControl, { label: "Conexão", value: t[0], onChange: t[1], options: [{ value: "usb", label: "USB", icon: "usb" }, { value: "ble", label: "Bluetooth", icon: "bluetooth" }] }),
+        h("span", { className: "tk-demo__cap" }, "Transporte: " + (t[0] === "usb" ? "USB MIDI" : "BLE-MIDI"))),
+      h("div", null, h(T.SegmentedControl, { label: "Tela", value: v[0], onChange: v[1], options: [
+        { value: "editor", label: "Editor", icon: "sliders" }, { value: "lib", label: "Biblioteca", icon: "waveform" },
+        { value: "presets", label: "Presets", icon: "grid" }, { value: "setlists", label: "Setlists", icon: "setlist" }] })));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

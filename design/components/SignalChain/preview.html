@@ -1,0 +1,28 @@
+<!-- @dsCard group="Telas" height=290 width=1040 subtitle="Clique num módulo para editar; clique no footswitch para ligar/desligar" -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>SignalChain — preview</title></head>
+<body>
+<div id="root" class="tk-demo tk-demo--col"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  function App() {
+    var sel = useState("amp");
+    var nodes = useState([
+      { id: "gate", kind: "gate", label: "GATE", on: true, led: "green", sub: "Gate 30", amount: 30 },
+      { id: "amp", kind: "amp", label: "AMP", on: true, sub: "Modern" },
+      { id: "mod", kind: "stomp", label: "MOD", on: true, led: "purple", sub: "FX 8" },
+      { id: "delay", kind: "stomp", label: "DELAY", on: false, led: "cyan", sub: "Time 1" },
+      { id: "reverb", kind: "stomp", label: "REVERB", on: true, led: "blue", sub: "Decay 12" },
+      { id: "cab", kind: "cab", label: "CAB · IR", on: true, sub: "Slot 3" }
+    ]);
+    return h(React.Fragment, null,
+      h(T.SignalChain, { nodes: nodes[0], selected: sel[0], onSelect: sel[1], onToggle: function (id, on) {
+        nodes[1](nodes[0].map(function (n) { return n.id === id ? Object.assign({}, n, { on: on }) : n; }));
+      } }),
+      h("span", { className: "tk-demo__cap" }, "Selecionado: " + sel[0].toUpperCase()));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

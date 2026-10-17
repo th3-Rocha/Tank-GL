@@ -1,0 +1,34 @@
+<!-- @dsCard group="Diagnóstico" height=260 -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>MidiMonitor — preview</title></head>
+<body>
+<div id="root" class="tk-demo tk-demo--col"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  var SAMPLE = [
+    ["out", "C0 07", "Program Change → preset 2D"], ["in", "B0 4A 46", "CC 74 = 70 · GAIN (a confirmar)"],
+    ["out", "F0 7D 01 22 40 F7", "SysEx · pedido de dump do preset"], ["in", "F0 7D 01 23 … F7", "SysEx · 128 bytes"],
+    ["in", "B0 4B 50", "CC 75 = 80 · VOLUME (a confirmar)"], ["out", "C0 08", "Program Change → preset 3A"]
+  ];
+  function App() {
+    var msgs = useState([
+      { time: "00:09.812", dir: "out", bytes: "C0 07", text: "Program Change → preset 2D" },
+      { time: "00:10.204", dir: "in", bytes: "B0 4A 46", text: "CC 74 = 70 · GAIN (a confirmar)", highlight: true },
+      { time: "00:10.977", dir: "out", bytes: "F0 7D 01 22 40 F7", text: "SysEx · pedido de dump do preset" }]), paused = useState(false), n = React.useRef(0);
+    React.useEffect(function () {
+      var t = setInterval(function () {
+        if (paused[0]) return;
+        var s = SAMPLE[n.current % SAMPLE.length], ms = 12000 + n.current * 431;
+        n.current += 1;
+        var time = "00:" + String(Math.floor(ms / 1000) % 60).padStart(2, "0") + "." + String(ms % 1000).padStart(3, "0");
+        msgs[1](function (m) { return m.concat([{ time: time, dir: s[0], bytes: s[1], text: s[2], highlight: s[2].indexOf("GAIN") >= 0 }]).slice(-40); });
+      }, 900);
+      return function () { clearInterval(t); };
+    }, [paused[0]]);
+    return h(T.MidiMonitor, { messages: msgs[0], paused: paused[0], onTogglePause: function () { paused[1](!paused[0]); }, onClear: function () { msgs[1]([]); }, height: 160 });
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>

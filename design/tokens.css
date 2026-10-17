@@ -1,0 +1,91 @@
+/* Tank Studio — gerado de tokens.json */
+:root, [data-theme="tankg"] {
+  --ground-top: #210031;
+  --ground-bottom: #0f0016;
+  --ground: #16001f;
+  --surface: #151515;
+  --surface-raised: #201e21;
+  --surface-card: #241e26;
+  --control: #353535;
+  --control-hover: #424242;
+  --control-active: #2b2b2b;
+  --line: #2e2b31;
+  --line-strong: #6e6c72;
+  --ink: #ffffff;
+  --ink-muted: #a6a5a8;
+  --ink-faint: #6a686d;
+  --amber: #ffaa00;
+  --amber-ink: var(--amber);
+  --amber-soft: #3d2a07;
+  --amber-glow: rgba(255, 170, 0, 0.55);
+  --on-amber: #1a1100;
+  --toggle-off: #c8c8c8;
+  --toggle-thumb: #ffffff;
+  --chartreuse: #c1c100;
+  --on-chartreuse: #1a1a00;
+  --focus: #ffffff;
+  --ok: #3fd0c9;
+  --ok-soft: #0e3533;
+  --danger: #ff6b5e;
+  --danger-soft: #3d1714;
+  --warn: #ffd54a;
+  --warn-soft: #3a3110;
+  --overlay: rgba(8, 0, 12, 0.7);
+  --display-bg: #070708;
+  --display-on: #ff4d2e;
+  --display-off: #2a1410;
+  --tolex: #0c0b0d;
+  --grille: #2a2622;
+  --metal: #8b8a8f;
+  --cable: #050505;
+  --led-red: #ff3b30;
+  --led-orange: #ff8a00;
+  --led-yellow: #ffd400;
+  --led-green: #34e05a;
+  --led-cyan: #22d3ee;
+  --led-blue: #3b82f6;
+  --led-purple: #a855f7;
+  --led-white: #f5f5f5;
+  --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-pop: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-glow: 0 0 14px rgba(255, 170, 0, 0.45);
+  --shadow-led: 0 0 12px rgba(255, 77, 46, 0.55);
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --ctrl-sm: 26px;
+  --ctrl-md: 32px;
+  --ctrl-lg: 44px;
+  --row-dense: 32px;
+  --knob-sm: 60px;
+  --knob-md: 88px;
+  --knob-lg: 116px;
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-condensed: "Barlow Condensed", "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+.display { font-family: var(--font-condensed); font-size: 40px; line-height: 40px; font-weight: 700; letter-spacing: 0.01em; }
+.heading { font-family: var(--font-condensed); font-size: 24px; line-height: 28px; font-weight: 600; }
+.title { font-family: var(--font-sans); font-size: 17px; line-height: 24px; font-weight: 600; }
+.button { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 700; }
+.body { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.body-strong { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 600; }
+.caption { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 500; }
+.label { font-family: var(--font-condensed); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.06em; }
+.label-lg { font-family: var(--font-condensed); font-size: 15px; line-height: 18px; font-weight: 700; letter-spacing: 0.06em; }
+.readout { font-family: var(--font-mono); font-size: 28px; line-height: 32px; font-weight: 600; }
+.value { font-family: var(--font-mono); font-size: 13px; line-height: 16px; font-weight: 500; }
+.code { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 400; }

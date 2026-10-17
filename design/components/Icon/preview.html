@@ -1,0 +1,20 @@
+<!-- @dsCard group="Fundamentos" height=400 subtitle="36 ícones, traço de 1.75 em 24px" -->
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Icon — preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var T = window.Tank, h = React.createElement, useState = React.useState;
+  function App() {
+    return h("div", { className: "tk-demo", style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(96px, 1fr))", gap: "4px" } },
+      T.ICON_NAMES.map(function (n) {
+        return h("div", { key: n, style: { display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", padding: "10px 4px", borderRadius: "var(--radius-sm)", background: "var(--surface-raised)", border: "1px solid var(--line)" } },
+          h(T.Icon, { name: n, size: 22 }),
+          h("span", { style: { fontFamily: "var(--font-mono)", fontSize: "11px", color: "var(--ink-muted)" } }, n));
+      }));
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(h(App));
+</script>
+</body>
+</html>
