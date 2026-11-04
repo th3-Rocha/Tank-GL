@@ -3,7 +3,21 @@
 Editor nativo para Linux da pedaleira **M-VAVE Tank-G**, para substituir o
 M-EFCS (só Windows). Tauri 2 + Rust + React.
 
-> Fase atual: **planejamento e engenharia reversa.** Ainda não tem código.
+> Fase atual: **engenharia reversa + CLI só de leitura.** O pedal já responde
+> (`TANK-Gv2_097`); ver `docs/PROTOCOLO.md` seção 0.
+
+## CLI
+
+```bash
+cargo build --release
+target/release/tankg identify          # TANK-Gv2_097
+target/release/tankg status            # preset 2A  modo P (preset)
+target/release/tankg preset 3C         # ou 1–36, next, prev
+target/release/tankg backup banco.bin  # banco de presets (758 B)
+target/release/tankg raw 0x20000000 4  # leitura crua, debug
+```
+
+Escrita na flash (`0x22`) e ERASE (`0x21`) estão bloqueados no transporte.
 
 ## Documentos
 

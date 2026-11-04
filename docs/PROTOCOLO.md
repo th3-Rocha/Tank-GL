@@ -9,8 +9,76 @@
 > - ✅ **verificado**: está no binário do M-EFCS ou foi medido em outro pedal da família
 > - 🟡 **hipótese forte**: o padrão é o mesmo em 3 ou mais pedais M-VAVE
 > - ❓ **a capturar**: só a captura no Tank-G resolve
+> - 🎸 **medido no Tank-G**: lido no pedal real (seção 0)
 
 ---
+
+## 0. Medido no Tank-G (2026-11-04)
+
+Primeiro plug, só leitura e troca de preset. Implementado em
+`crates/tankg-proto` e na CLI `tankg`.
+
+| Item | Resultado | |
+|---|---|---|
+| USB | `4c4a:c755` "Jieli Technology USB Composite Device", serial `4150353336323716`. **Mesmo VID:PID da BlackBox** | 🎸 |
+| Porta MIDI | ALSA `hw:N,0,0` "USB Composite Device MIDI 1" (o kernel avisa "falling back to MIDI 1.0", normal) | 🎸 |
+| Identidade (`11`) | `TANK-Gv2_097` + zeros (27 B). Frame, checksum e empacotamento 7-bit iguais aos da família | 🎸 |
+| `04 / 0x0000_0000` | **Banco de presets, 758 B**, começa com `a5 5a`. Idêntico ao `tankG_am4_preset.bin` do M-EFCS, menos os bytes 0–20 (cabeçalho, provavelmente config global). Firmware é da linha **am4** | 🎸 |
+| `04 / 0x2000_0000` | **Estado, 4 B:** `[banco?, banco ativo, letra A–D (0–3, ff = nenhum desde o boot), modo (01 = P, 00 = L)]`. Os bytes 0 e 1 foram sempre iguais; o 0 deve ser o banco piscando no display antes de confirmar | 🎸 |
+| `04 / 0xD000_0000` | `01`. Provável Loopback, não confirmado | 🟡 |
+| `04 / 0xE000_0000` | `1a`, não muda ao trocar de preset. **Não é o preset ativo** no Tank-G | 🎸 |
+| `04 / 0x1000_0000` | Resposta bem formada com **buffer velho** dentro. Não é o patch atual no Tank-G | 🎸 |
+| Program Change `C0 n` | Seleciona o preset `n` (0–35 = 1A–9D), confirmado pelo estado | 🎸 |
+| Tamanho de leitura | Pedidos de 100 B funcionam. **Ler além do fim do banco devolve buffer velho** com checksum válido (armadilha 1 da seção 7) | 🎸 |
+
+Mapa de preset: 9 bancos × 4 (A–D) = 36, `índice = banco·4 + letra`.
+
+**Formato do banco** 🎸: `a5 5a` + **36 registros de 21 B** (2 + 36·21 = 758),
+na ordem 1A…9D. Nesta pedaleira o 1A está todo zerado; os outros 35 são
+iguais aos de fábrica.
+
+**Preset atual (edit buffer)** 🎸: `04 / 0x1000_0000`, **ler exatamente 21 B**
+(é o mesmo registro do banco). No modo LIVE ele muda na hora quando se gira
+um knob ou pisa num footswitch, sem salvar. Log: `captures/knobs-4C-2026-11-04.log`.
+
+**Registro de 21 B** 🎸 (os knobs seguem a ordem do painel):
+
+| Byte | Campo | Faixa |
+|---|---|---|
+| 0 | AMP on/off (footswitch D no LIVE) | 0/1 |
+| 1 | MOD on/off (C) | 0/1 |
+| 2 | DELAY on/off (B) | 0/1 |
+| 3 | REVERB on/off (A) | 0/1 |
+| 4 | NOISE GATE | 0–127 |
+| 5 | AMP TYPE | 0–8 |
+| 6 | GAIN | 0–127 |
+| 7 | TREBLE | 0–127 |
+| 8 | MIDDLE | 0–127 |
+| 9 | BASS | 0–127 |
+| 10 | VOLUME | 0–127 |
+| 11 | MOD FX (posição; a zona escolhe o tipo) | 0–127 |
+| 12 | MOD SPEED | 0–127 |
+| 13 | DLY MIX (posição; a zona escolhe o tipo) | 0–127 |
+| 14 | DLY TIME | 0–127 |
+| 15 | RVB DECAY (posição; a zona escolhe o tipo) | 0–127 |
+| 16 | RVB MIX | 0–127 |
+| 17 | IR CAB (0 = OFF, 1–8 = slot) | 0–8 |
+| 18 | ? fábrica `ff` (24 presets) ou `00` (12). Cor do LED? | ❓ |
+| 19–20 | ? sempre `00` | ❓ |
+
+O **MASTER não está no preset**: girar não muda nenhum byte. É global.
+Implementado em `crates/tankg-proto/src/patch.rs`.
+
+Os "nomes" que o M-EFCS mostra (`GENUL`…) são esses bytes vistos como ASCII,
+não nomes.
+
+**Bateria** 🎸: não achada. O M-EFCS não lê bateria da Tank-G (`RcLowBattery`
+é de outro produto). Ler `0x2000_0000` com mais de 4 B, ou as famílias
+`0x3…`–`0xC…`, devolve buffer velho. Pela USB ela está sempre carregando; se
+existir leitura, deve ser pelo BLE.
+
+Falta: confirmar os campos do registro, onde
+ficam knobs/toggles do patch atual, cor do LED, IR Lv, escrita e upload.
 
 ## 1. Resumo
 

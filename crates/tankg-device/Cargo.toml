@@ -1,0 +1,11 @@
+[package]
+name = "tankg-device"
+description = "Transporte USB-MIDI do Tank-G (midir / ALSA seq)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+tankg-proto.workspace = true
+thiserror.workspace = true
+midir = "0.10"

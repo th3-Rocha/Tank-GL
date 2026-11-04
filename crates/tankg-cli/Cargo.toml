@@ -1,0 +1,16 @@
+[package]
+name = "tankg-cli"
+description = "CLI tankg"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "tankg"
+path = "src/main.rs"
+
+[dependencies]
+tankg-proto.workspace = true
+tankg-device.workspace = true
+anyhow.workspace = true
+clap = { version = "4", features = ["derive"] }

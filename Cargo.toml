@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = ["crates/tankg-proto", "crates/tankg-device", "crates/tankg-cli", "src-tauri"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+
+[workspace.dependencies]
+tankg-proto = { path = "crates/tankg-proto" }
+tankg-device = { path = "crates/tankg-device" }
+thiserror = "2"
+anyhow = "1"

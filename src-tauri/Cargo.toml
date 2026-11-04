@@ -1,0 +1,16 @@
+[package]
+name = "tank-studio"
+description = "Tank Studio: editor da M-VAVE Tank-G para Linux"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tankg-proto = { workspace = true, features = ["serde"] }
+tankg-device.workspace = true
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
