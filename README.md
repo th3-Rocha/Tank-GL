@@ -1,39 +1,59 @@
 # Tank-GL
 
-Editor nativo para Linux da pedaleira **M-VAVE Tank-G**, para substituir o
-M-EFCS (só Windows). Tauri 2 + Rust + React.
+Native Linux editor for the **M-VAVE Tank-G** pedal, replacing M-EFCS
+(Windows only). Rust: protocol in `crates/`, app in egui + fastframe (`app/`,
+binary `tank-studio-egui`). The old Tauri + React app was removed; it is in
+git history (commit 64065f2).
 
-> Fase atual: **engenharia reversa + CLI só de leitura.** O pedal já responde
-> (`TANK-Gv2_097`); ver `docs/PROTOCOLO.md` seção 0.
+> Current phase: **reverse engineering + editor.** The pedal answers
+> (`TANK-Gv2_097`); see `docs/PROTOCOL.md` section 0.
+
+## App
+
+```bash
+cargo build --release -p tank-studio-egui
+target/release/tank-studio-egui
+```
+
+Edit the current preset on a drawn pedalboard, switch presets and modes,
+save and swap presets in flash (with an automatic backup first), and
+audition or save IRs and amps from a file, the factory set or
+community.m-vave.com. Narrow or portrait windows switch to a vertical layout
+with the pedals in two rows.
 
 ## CLI
 
 ```bash
 cargo build --release
 target/release/tankg identify          # TANK-Gv2_097
-target/release/tankg status            # preset 2A  modo P (preset)
-target/release/tankg preset 3C         # ou 1–36, next, prev
-target/release/tankg backup banco.bin  # banco de presets (758 B)
-target/release/tankg raw 0x20000000 4  # leitura crua, debug
+target/release/tankg status            # preset 2A  mode P (preset)
+target/release/tankg preset 3C         # or 1–36, next, prev
+target/release/tankg backup bank.bin   # preset bank (758 B)
+target/release/tankg raw 0x20000000 4  # raw read, debug
 ```
 
-Escrita na flash (`0x22`) e ERASE (`0x21`) estão bloqueados no transporte.
+Works over the USB cable or over **Bluetooth** (`TANK-Gv2_BLE`, paired in
+BlueZ). Without the cable, the CLI and the app use Bluetooth on their own;
+`tankg --port ble` forces Bluetooth and connects if the pedal is only paired.
 
-## Documentos
+ERASE (`0x21`) is blocked in the transport. Flash writes (save, swap, IR/amp
+slots) only happen on explicit commands, after a backup of the bank.
 
-| Doc | Conteúdo |
+## Documents
+
+| Doc | Contents |
 |---|---|
-| [docs/PLANO.md](docs/PLANO.md) | O que o app oficial faz e o que o nosso adiciona |
-| [docs/ARQUITETURA.md](docs/ARQUITETURA.md) | Stack, módulos, como cada recurso funciona, roteiro por fases |
-| [docs/PROTOCOLO.md](docs/PROTOCOLO.md) | Como falar com o Tank-G: USB-MIDI SysEx, frame `00 59`, mapa de memória, upload de IR, armadilhas |
-| [docs/CAPTURAS.md](docs/CAPTURAS.md) | M-EFCS no Wine, captura com usbmon, checklist |
-| [design/README.md](design/README.md) | Design system **Tank Studio**: cores, tipografia, tokens, 22 componentes React e ícones (cada componente tem `README.md` + `preview.html`) |
+| [docs/PLAN.md](docs/PLAN.md) | What the official app does and what ours adds |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Stack, modules, how each feature works, phased roadmap (partly outdated) |
+| [docs/PROTOCOL.md](docs/PROTOCOL.md) | How to talk to the Tank-G: USB-MIDI SysEx, BLE, the `00 59` frame, memory map, IR upload, pitfalls |
+| [docs/CAPTURES.md](docs/CAPTURES.md) | M-EFCS under Wine, capturing with usbmon, checklist |
+| [design/README.md](design/README.md) | Tank Studio design notes, color tokens and icons |
 
-## Resumo
+## Summary
 
-- O Tank-G é USB-MIDI class-compliant com SysEx, mais interface de áudio USB.
-  No Linux funciona sem driver.
-- Usa o protocolo comum dos pedais M-VAVE, que a comunidade já documentou no
-  Tank Mini, MK-300, BlackBox e IR Box.
-- O pedal tem 36 presets, **9 slots de amp e 8 de IR**. O app trata esses
-  slots como cache de uma biblioteca ilimitada no PC.
+- The Tank-G is class-compliant USB-MIDI with SysEx, plus a USB audio
+  interface. It works on Linux with no driver. Over Bluetooth LE it speaks the
+  same protocol, with the raw frame on the `ae40` service.
+- It uses the protocol shared by M-VAVE pedals, which the community already
+  documented for the Tank Mini, MK-300, BlackBox and IR Box.
+- The pedal has 36 presets, **9 amp slots and 8 IR slots**.

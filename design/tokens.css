@@ -1,4 +1,4 @@
-/* Tank Studio — gerado de tokens.json */
+/* Tank Studio — generated from tokens.json */
 :root, [data-theme="tankg"] {
   --ground-top: #210031;
   --ground-bottom: #0f0016;
@@ -14,11 +14,11 @@
   --ink: #ffffff;
   --ink-muted: #a6a5a8;
   --ink-faint: #6a686d;
-  --amber: #ffaa00;
+  --amber: #22d3ee;
   --amber-ink: var(--amber);
-  --amber-soft: #3d2a07;
-  --amber-glow: rgba(255, 170, 0, 0.55);
-  --on-amber: #1a1100;
+  --amber-soft: #06323a;
+  --amber-glow: rgba(34, 211, 238, 0.55);
+  --on-amber: #001a1f;
   --toggle-off: #c8c8c8;
   --toggle-thumb: #ffffff;
   --chartreuse: #c1c100;
@@ -48,7 +48,7 @@
   --led-white: #f5f5f5;
   --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.45);
   --shadow-pop: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-glow: 0 0 14px rgba(255, 170, 0, 0.45);
+  --shadow-glow: 0 0 14px rgba(34, 211, 238, 0.45);
   --shadow-led: 0 0 12px rgba(255, 77, 46, 0.55);
 }
 :root {

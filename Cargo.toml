@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/tankg-proto", "crates/tankg-device", "crates/tankg-cli", "src-tauri"]
+members = ["crates/tankg-proto", "crates/tankg-device", "crates/tankg-cli", "app"]
 
 [workspace.package]
 version = "0.1.0"

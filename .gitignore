@@ -1,11 +1,10 @@
 /target
 node_modules/
-/ui/dist
 *.pcap
 *.pcapng
 /captures/*
 !/captures/README.md
-# binários do software oficial não vão pro repo
+# binaries from the official software stay out of the repo
 *.exe
 *.dll
 *.am2data

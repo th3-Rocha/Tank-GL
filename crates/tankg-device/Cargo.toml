@@ -1,6 +1,6 @@
 [package]
 name = "tankg-device"
-description = "Transporte USB-MIDI do Tank-G (midir / ALSA seq)."
+description = "Tank-G transport: USB-MIDI (midir / ALSA seq) and Bluetooth LE (BlueZ)."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -9,3 +9,4 @@ license.workspace = true
 tankg-proto.workspace = true
 thiserror.workspace = true
 midir = "0.10"
+dbus = "0.9"

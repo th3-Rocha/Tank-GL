@@ -1,11 +1,11 @@
-//! Um preset da Tank-G: 21 bytes, iguais no banco e no edit buffer.
+//! A Tank-G preset: 21 bytes, the same in the bank and the edit buffer.
 //!
-//! Mapeado girando cada knob no modo LIVE e lendo `0x1000_0000`
-//! (`captures/knobs-4C-2026-11-04.log`). Os knobs ficam na ordem do painel.
+//! Mapped by turning each knob in LIVE mode and reading `0x1000_0000`
+//! (`captures/knobs-4C-2026-11-04.log`). Knobs follow the panel's order.
 
 use crate::PATCH_LEN;
 
-/// Knobs contínuos vão de 0 a 127.
+/// Continuous knobs go from 0 to 127.
 pub const KNOB_MAX: u8 = 127;
 /// AMP TYPE: 0–8 (9 amps).
 pub const AMP_TYPES: u8 = 9;
@@ -16,7 +16,7 @@ pub const IR_SLOTS: u8 = 8;
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "serde", serde(rename_all = "camelCase"))]
 pub struct Patch {
-    /// Footswitch D no modo LIVE.
+    /// Footswitch D in LIVE mode.
     pub amp_on: bool,
     /// Footswitch C.
     pub mod_on: bool,
@@ -31,18 +31,18 @@ pub struct Patch {
     pub middle: u8,
     pub bass: u8,
     pub volume: u8,
-    /// Posição do knob; a zona escolhe Chorus/Phaser/Tremolo.
+    /// Knob position; the zone picks Chorus/Phaser/Tremolo.
     pub mod_fx: u8,
     pub mod_speed: u8,
-    /// Posição do knob; a zona escolhe Analog/Tape/Dual.
+    /// Knob position; the zone picks Analog/Tape/Dual.
     pub delay_mix: u8,
     pub delay_time: u8,
-    /// Posição do knob; a zona escolhe Room/Spring/Cloud.
+    /// Knob position; the zone picks Room/Spring/Cloud.
     pub reverb_decay: u8,
     pub reverb_mix: u8,
     pub ir_cab: u8,
-    /// Bytes 18–20, ainda sem significado. Fábrica: `ff`/`00`, `00`, `00`.
-    /// O 18 pode ser a cor do LED. Guardados para não perder nada na volta.
+    /// Bytes 18–20, meaning still unknown. Factory: `ff`/`00`, `00`, `00`.
+    /// Byte 18 may be the LED color. Kept so nothing is lost on the way back.
     pub unknown: [u8; 3],
 }
 
@@ -99,7 +99,7 @@ impl Patch {
         ]
     }
 
-    /// Os 36 presets de um banco lido de `0x0000_0000`.
+    /// The 36 presets of a bank read from `0x0000_0000`.
     pub fn from_bank(bank: &[u8]) -> Option<Vec<Self>> {
         let body = bank.strip_prefix(&[0xA5, 0x5A])?;
         if body.len() != crate::preset::COUNT as usize * PATCH_LEN {
@@ -113,17 +113,20 @@ impl Patch {
 mod tests {
     use super::*;
 
-    /// 4C de fábrica, lido do edit buffer.
+    /// Factory 4C, read from the edit buffer.
     const P4C: [u8; 21] = [
-        0x01, 0x00, 0x01, 0x01, 0x00, 0x05, 0x55, 0x58, 0x40, 0x3d, 0x62, 0x00, 0x00, 0x06, 0x23, 0x05, 0x01, 0x04,
-        0x00, 0x00, 0x00,
+        0x01, 0x00, 0x01, 0x01, 0x00, 0x05, 0x55, 0x58, 0x40, 0x3d, 0x62, 0x00, 0x00, 0x06, 0x23,
+        0x05, 0x01, 0x04, 0x00, 0x00, 0x00,
     ];
 
     #[test]
     fn parse_4c() {
         let p = Patch::parse(&P4C).unwrap();
         assert!(p.amp_on && !p.mod_on && p.delay_on && p.reverb_on);
-        assert_eq!((p.amp_type, p.gain, p.treble, p.middle, p.bass, p.volume), (5, 85, 88, 64, 61, 98));
+        assert_eq!(
+            (p.amp_type, p.gain, p.treble, p.middle, p.bass, p.volume),
+            (5, 85, 88, 64, 61, 98)
+        );
         assert_eq!(p.ir_cab, 4);
         assert_eq!(p.to_bytes(), P4C);
     }

@@ -1,0 +1,24 @@
+[package]
+name = "tank-studio-egui"
+description = "Tank Studio in egui + fastframe: editor for the M-VAVE Tank-G."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "tank-studio-egui"
+path = "src/main.rs"
+
+[dependencies]
+tankg-proto.workspace = true
+tankg-device.workspace = true
+eframe = "0.36.2"
+egui = "0.36.2"
+fastframe-graphics = { git = "https://github.com/crmne/fastframe", tag = "v0.17.0" }
+fastframe-fonts = { git = "https://github.com/crmne/fastframe", tag = "v0.17.0" }
+fastframe-text = { git = "https://github.com/crmne/fastframe", tag = "v0.17.0" }
+fastframe-instance = { git = "https://github.com/crmne/fastframe", tag = "v0.17.0" }
+rfd = "0.15"
+ureq = { version = "2", features = ["json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

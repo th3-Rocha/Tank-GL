@@ -1,4 +1,4 @@
-//! Identificação de preset: 9 bancos × 4 (A–D) = 36.
+//! Preset ids: 9 banks × 4 (A–D) = 36.
 
 use std::fmt;
 use std::str::FromStr;
@@ -7,7 +7,7 @@ pub const BANKS: u8 = 9;
 pub const SLOTS: u8 = 4;
 pub const COUNT: u8 = BANKS * SLOTS;
 
-/// Preset `0..36`. Mostrado como `1A`…`9D`.
+/// Preset `0..36`. Shown as `1A`…`9D`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PresetId(u8);
 
@@ -16,7 +16,7 @@ impl PresetId {
         (index < COUNT).then_some(Self(index))
     }
 
-    /// `bank` e `slot` começam em 0, como no registrador de estado.
+    /// `bank` and `slot` start at 0, as in the status register.
     pub fn from_bank_slot(bank: u8, slot: u8) -> Option<Self> {
         (bank < BANKS && slot < SLOTS).then(|| Self(bank * SLOTS + slot))
     }
@@ -43,10 +43,10 @@ impl fmt::Display for PresetId {
 impl FromStr for PresetId {
     type Err = String;
 
-    /// Aceita `2B` / `2b` ou o número `1..=36`.
+    /// Accepts `2B` / `2b` or the number `1..=36`.
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let s = s.trim();
-        let err = || format!("preset inválido: {s:?} (use 1A–9D ou 1–36)");
+        let err = || format!("invalid preset: {s:?} (use 1A–9D or 1–36)");
         if let Ok(n) = s.parse::<u8>() {
             return n.checked_sub(1).and_then(Self::new).ok_or_else(err);
         }
@@ -59,7 +59,9 @@ impl FromStr for PresetId {
             "D" => 3,
             _ => return Err(err()),
         };
-        bank.checked_sub(1).and_then(|b| Self::from_bank_slot(b, slot)).ok_or_else(err)
+        bank.checked_sub(1)
+            .and_then(|b| Self::from_bank_slot(b, slot))
+            .ok_or_else(err)
     }
 }
 
@@ -69,7 +71,14 @@ mod tests {
 
     #[test]
     fn parse_and_display() {
-        for (s, idx) in [("1A", 0), ("2b", 5), ("4B", 13), ("9D", 35), ("1", 0), ("36", 35)] {
+        for (s, idx) in [
+            ("1A", 0),
+            ("2b", 5),
+            ("4B", 13),
+            ("9D", 35),
+            ("1", 0),
+            ("36", 35),
+        ] {
             let p: PresetId = s.parse().unwrap();
             assert_eq!(p.index(), idx, "{s}");
         }

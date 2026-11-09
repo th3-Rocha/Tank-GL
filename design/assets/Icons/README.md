@@ -1,10 +1,10 @@
 # Icons
 
-36 ícones de traço próprios do Tank Studio: grade de 24px, traço 1.75, pontas e junções redondas. Os arquivos têm tinta fixa `#8f8b83` (legível sobre o fundo roxo e sobre os cartões); dentro do app use `Tank.Icon`, que pinta com a cor do texto.
+Tank Studio's own set of 36 stroke icons: 24px grid, 1.75 stroke, round caps and joins. The files have a fixed `#8f8b83` ink (readable on the dark backgrounds and on the cards).
 
-- Conexão: `usb`, `bluetooth`, `midi`
-- Áudio e hardware: `waveform` (IR), `amp`, `knob`, `sliders`, `headphones` (pré-escuta), `power`
-- Ações: `send` (gravar no pedal), `download`, `save`, `swap`, `undo`, `redo`, `history` (restaurar), `trash`, `plus`, `close`, `check`
-- Navegação: `search`, `filter`, `chevron-down`, `chevron-right`, `command`, `grid` (presets), `setlist`, `folder`, `tag`, `link`
-- Reprodução: `play`, `pause`, `stop`
-- Estado: `star`, `star-filled`, `alert`
+- Connection: `usb`, `bluetooth`, `midi`
+- Audio and hardware: `waveform` (IR), `amp`, `knob`, `sliders`, `headphones` (audition), `power`
+- Actions: `send` (save to the pedal), `download`, `save`, `swap`, `undo`, `redo`, `history` (restore), `trash`, `plus`, `close`, `check`
+- Navigation: `search`, `filter`, `chevron-down`, `chevron-right`, `command`, `grid` (presets), `setlist`, `folder`, `tag`, `link`
+- Playback: `play`, `pause`, `stop`
+- State: `star`, `star-filled`, `alert`

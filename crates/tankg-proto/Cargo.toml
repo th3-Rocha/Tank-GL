@@ -1,6 +1,6 @@
 [package]
 name = "tankg-proto"
-description = "Protocolo do M-VAVE Tank-G: frame 00 59, checksum, empacotamento 7-bit. Sem I/O."
+description = "M-VAVE Tank-G protocol: 00 59 frame, checksum, 7-bit packing. No I/O."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
